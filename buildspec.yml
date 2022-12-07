@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed
+artifacts:
+  files:
+    - target/*.war
+    - scripts/server_start.sh
+    - scripts/server_stop.sh
+    - TestXMLFile.xml
+    - appspec.yml
+   
+  discard-paths: yes
