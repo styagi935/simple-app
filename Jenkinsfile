@@ -19,7 +19,7 @@ pipeline{
             steps{
                 echo "Maven Build Started"
                 sh "mvn clean package"
-                echo "Maven Build is successful"
+                echo "Maven Build needs to be successful"
             }
         }
          stage('Unit Test') { 
