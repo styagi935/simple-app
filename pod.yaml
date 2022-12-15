@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: nodeapp
-      image: styagi935/simple-app:v1
+      image: styagi935/simple-app:tagVersion
       ports:
         - containerPort: 8080
