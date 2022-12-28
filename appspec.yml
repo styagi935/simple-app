@@ -10,7 +10,7 @@ artifacts:
     - appspec.yml
     
 files:
-  - source: /simple-app-7.0.0.war
+  - source: /simple-app-2.0.0.war
     destination: /home/ec2-user/tomcat/apache-tomcat-8.5.35/webapps/
   - source: /TestXMLFile.xml
     destination: /home/ec2-user/tomcat/apache-tomcat-8.5.35/webapps/ 
