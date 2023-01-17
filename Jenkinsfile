@@ -17,13 +17,22 @@ pipeline {
        stage('Git CheckOut'){
             steps{
               git branch: '$BRANCH_NAME', changelog: false, poll: false, url: 'https://github.com/ankupsatpute/simple-app-final.git'
-               echo "Git Checkout Completed"
-               
-                 
+               echo "Git Checkout Completed"            
                }
             }
         
-       stage('Unit Test'){
+        
+         stage('OWASP-Dependency-Check'){
+             when{
+                 branch 'UAT'
+             }
+           steps{
+                dependencyCheck additionalArguments: '--scan $WORKSPACE/ --format ALL --disableYarnAudit', odcInstallation: 'OWASP-Dependency-Check' 
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
+            }
+        }  
+        
+     stage('Unit Test'){
                 steps{
                     sh 'mvn test'
                 }
@@ -44,7 +53,19 @@ pipeline {
                    echo "Current workspace is $WORKSPACE"
                  }
             }
-       
+            
+        /*stage('Code Analysis With SonarQube'){
+              when{
+              branch 'develop'
+              }
+               steps{
+                withSonarQubeEnv('sonarqube-8.9.10.61524'){
+                    sh'mvn sonar:sonar -Dsonar.projectKey=Ansible'
+                    
+                }
+               }
+            }*/
+        
         stage ('Deploy_Develop'){
                 when {
                     branch 'develop'
@@ -67,6 +88,21 @@ pipeline {
              }
          }
         
+        /* stage('DAST'){
+             when {
+                    branch 'UAT'
+                }
+          steps{
+           sh "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://65.1.3.193:8080/simple-app-1.0.0|| true"
+          }
+          post{
+              always{
+                  sh 'docker rm $(docker ps --filter status=exited -q)'
+              }
+          }
+
+       }*/
+        
         stage ('Deploy_Release'){
               when {
                   branch 'release'
@@ -78,5 +114,19 @@ pipeline {
              }
          }
         
+        /* stage('DAST'){
+             when {
+                    branch 'release'
+                }
+          steps{
+           sh "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://65.1.3.193:8080/simple-app-1.0.0|| true"
+          }
+          post{
+              always{
+                  sh 'docker rm $(docker ps --filter status=exited -q)'
+              }
+          }
+
+       }*/
    }
 }
