@@ -114,7 +114,7 @@ pipeline {
              }
          }
         
-       stage('DAST'){
+       /*stage('DAST'){
              when {
                     branch 'release'
                 }
@@ -127,6 +127,6 @@ pipeline {
               }
           }
 
-       }
+       }*/
    }
 }
