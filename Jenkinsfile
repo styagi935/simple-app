@@ -109,7 +109,7 @@ pipeline {
                 }
             steps{
                 sshagent(['Tomcat']) {
-                sh "scp -o StrictHostkeyChecking=no  $WORKSPACE/target/*.war ec2-user@172.31.46.102:/opt/apache-tomcat-9.0.70/webapps"
+                sh "scp -o StrictHostkeyChecking=no  $WORKSPACE/target/*.war ec2-user@172.31.46.102:/opt/apache-tomcat-9.0.71/webapps"
                  }
              }
          }
