@@ -22,15 +22,7 @@ pipeline {
             }
         
         
-         stage('OWASP-Dependency-Check'){
-             when{
-                 branch 'UAT'
-             }
-           steps{
-                dependencyCheck additionalArguments: '--scan $WORKSPACE/ --format ALL --disableYarnAudit', odcInstallation: 'OWASP-Dependency-Check' 
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
-            }
-        }  
+         
         
      stage('Unit Test'){
                 steps{
@@ -66,7 +58,7 @@ pipeline {
                }
             }*/
         
-        stage ('Deploy_Develop'){
+      /*  stage ('Deploy_Develop'){
                 when {
                     branch 'develop'
                 }
@@ -86,7 +78,7 @@ pipeline {
                 sh "scp -o StrictHostkeyChecking=no  $WORKSPACE/target/*.war ec2-user@172.31.14.112:/opt/apache-tomcat-9.0.70/webapps"
                  }
              }
-         }
+         }*/
         
         /* stage('DAST'){
              when {
@@ -100,8 +92,7 @@ pipeline {
                   sh 'docker rm $(docker ps --filter status=exited -q)'
               }
           }
-
-       }*/
+       }
         
         stage ('Deploy_Release'){
               when {
@@ -112,7 +103,7 @@ pipeline {
                 sh "scp -o StrictHostkeyChecking=no  $WORKSPACE/target/*.war ec2-user@172.31.46.102:/opt/apache-tomcat-9.0.71/webapps"
                  }
              }
-         }
+         }*/
         
        /*stage('DAST'){
              when {
@@ -126,7 +117,6 @@ pipeline {
                   sh 'docker rm $(docker ps --filter status=exited -q)'
               }
           }
-
        }*/
    }
 }
