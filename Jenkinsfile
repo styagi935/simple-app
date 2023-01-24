@@ -14,30 +14,14 @@ pipeline {
             }
         }
         
-      /* stage('Git CheckOut'){
+      stage('Git CheckOut'){
             steps{
               git branch: '$BRANCH_NAME', changelog: false, poll: false, url: 'https://github.com/ankupsatpute/simple-app-final.git'
                echo "Git Checkout Completed"            
                }
-            }*/
-        stage('Git Checkout'){
-            steps{
-                checkout scmGit(branches: [[name: '*/develop']], 
-                extensions: [
-                [
-                    $class: 'PreBuildMerge', 
-                options: [
-                mergeRemote: 'origin', 
-                fastForwardMode: "FF",
-                mergeStrategy: "RECURSIVE_THEIRS",
-                mergeTarget: 'master']]],
-                userRemoteConfigs: [[url: 'https://github.com/ankupsatpute/simple-app-final.git']])
             }
-        }
-        
-         
-        
-     stage('Unit Test'){
+       
+       stage('Unit Test'){
                 steps{
                     sh 'mvn test'
                 }
