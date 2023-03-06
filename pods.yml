@@ -15,7 +15,7 @@ spec:
         app: ankush
     spec:    
       containers:
-      - name: nodeapp
+      - name: ankush
         image: ankushsatpute/ankush:tagVersion
         imagePullPolicy: Always      
         ports:
