@@ -37,7 +37,7 @@ pipeline {
           stage('Deploy On EKS'){
              steps{ 
                   // withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '']])
-                 withkubeconfig(credentialsId: 'K8S', serverUrl: '') {
+                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                       sh "kubectl apply -f pods.yml"
                       sh "kubectl apply -f service.yml"
   
