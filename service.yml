@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-   name: nodeapp
+   name: ankush
 spec:
    selector:
-     app: nodeapp
+     app: ankush
    ports:
    - protocol: TCP
      port: 8080
