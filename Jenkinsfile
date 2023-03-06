@@ -11,7 +11,7 @@ pipeline {
         stage('Git CheckOut'){
             steps{
                 git 'https://github.com/ankupsatpute/simple-app.git'     
-                echo $BUILD_TRIGGER_BY
+                echo "${BUILD_TRIGGER_BY}"
                }
             }
         
