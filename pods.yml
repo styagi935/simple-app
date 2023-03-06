@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp
+  name: ankush
   labels:
-    app: nodeapp
+    app: ankush
 spec:
-  replicas: 1
+  replicas: 2
   selector: 
     matchLabels:
-      app: nodeapp
+      app: ankush
   template:
     metadata:
       labels:
-        app: nodeapp
+        app: ankush
     spec:    
       containers:
       - name: nodeapp
-        image: ankushsatpute/ltidockerdemo:tagVersion
+        image: ankushsatpute/ankush:tagVersion
         imagePullPolicy: Always      
         ports:
         - containerPort: 8080
