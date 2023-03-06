@@ -42,7 +42,7 @@ pipeline {
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'EKS', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                      sh "chmod +x changeTag.sh"
                      sh "./changeTag.sh ${DOCKER_TAG}"   
-                     sh "kubectl apply -f pods.yml"
+                     sh "kubectl apply -f node-app-pod.yml"
                      sh "kubectl apply -f service.yml"
   
                         }           
