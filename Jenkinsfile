@@ -32,6 +32,7 @@ pipeline {
                 sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push ankushsatpute/ankush:${DOCKER_TAG}"
                 sh "docker rmi ankushsatpute/ankush:${DOCKER_TAG}"
+                
                 }
              }
           
@@ -39,8 +40,10 @@ pipeline {
              steps{ 
                   // withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '']])
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'EKS', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                        sh "kubectl apply -f pods.yml"
-                        sh "kubectl apply -f service.yml"
+                     sh "chmod +x changeTag.sh"
+                     sh "./changeTag.sh ${DOCKER_TAG}"   
+                     sh "kubectl apply -f pods.yml"
+                     sh "kubectl apply -f service.yml"
   
                         }           
                 }
