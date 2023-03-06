@@ -10,7 +10,8 @@ pipeline {
     stages{
         stage('Git CheckOut'){
             steps{
-                git 'https://github.com/ankupsatpute/simple-app.git'       
+                git 'https://github.com/ankupsatpute/simple-app.git'     
+                echo $BUILD_TRIGGER_BY
                }
             }
         
